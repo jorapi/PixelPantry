@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PixelPantry.App.ViewModels;assembly=PixelPantry.App"
+             x:Class="PixelPantry.App.MainPage">
+
+    <!-- Main ScrollView to enable vertical scrolling -->
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="10">
+            <!-- CollectionView for Franchises -->
+            <CollectionView x:Name="FranchisesCollectionView" ItemsSource="{Binding Franchises}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold"/>
+                                <ProgressBar Progress="{Binding SizePercentage}" ProgressColor="Blue"/>
+                                <!-- Nested CollectionView for Games -->
+                                <CollectionView ItemsSource="{Binding Games}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="10" ColumnSpacing="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Game Title -->
+                                                <Label Grid.Column="0" 
+                       Text="{Binding Title}" 
+                       VerticalOptions="Center" />
+
+                                                <!-- Progress Bar for Size Percentage -->
+                                                <ProgressBar Grid.Column="1" 
+                             Progress="{Binding SizePercentage}"
+                             VerticalOptions="Center" />
+
+                                                <!-- Total Size of the Game -->
+                                                <Label Grid.Column="2" 
+                       Text="{Binding TotalSize, StringFormat='{0:N0} bytes'}" 
+                       VerticalOptions="Center" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
